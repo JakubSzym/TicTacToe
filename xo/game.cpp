@@ -124,8 +124,6 @@ void computerMove(Board& b){
             }
         }
     }
-
-    cout << b.size() << endl;        
-    cout << x << " " << y << endl;
+    
     b(x,y)='O';   //ustawienie znaku na planszy
 }
