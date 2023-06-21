@@ -1,23 +1,24 @@
 #include "game.hh"
+#include <ctime>
+#include <cstdlib>
 using namespace std;
 
 void startGame(){
-    system("CLS");
+    system("clear");
     cout<<"Gra w Kolko i Krzyzyk - czlowiek vs komputer"<<endl;
     cout<<"Autor: Jakub Szymkowiak"<<endl;
     cout<<"Nacisnij dowolny klawisz, by zagrac"<<endl;
-    while(!getch()); //gra rozpoczyna się gdy gracz naciśnie jakiś klawisz
-    system("CLS");
 }
 
 bool onceMore(){
     cout<<"Czy chcesz zagrac rewanz? (Tak - T)"<<endl;
-    char sign=getch();
-    //naciśnięcie klawisza 'T' powoduje zwrócenie true
+    char sign;
+    cin >> sign;
+    cin.clear();
     if(sign=='T' || sign=='t'){
         return true;
     }
-    return false; //jeśli naciśnięto coś innego - false
+    return false;
 }
 
 void playerMove(Board &b){
@@ -83,27 +84,48 @@ int minimax(char sign, int depth, int alpha, int beta, Board& b){
 }
 
 void computerMove(Board& b){
-        int x, y, eval, maxEval; //zmienne pomocnice
-        maxEval=-10; //początkowa wartość
-        //W pętli analizuje się każdą możliwa pozycję
-        for(int i=0;i<b.size();i++){
-            for(int j=0;j<b.size();j++){
-                if(b(i,j)==' '){
-                    b(i,j)='O';
-                    //wykorzystanie algorytmu minimax o ustalonej głębokości
-                    //Im większa głębokość, tym większa szansa na optymalne ruchy
-                    //Niestety duża głębokość zwiększa czas obliczeń
-                    eval=minimax('O',6,-10, 10, b);
-                    b(i,j)=' ';
-                    //Komputer jest graczem maksymalizowanym, więc:
-                    if(eval>maxEval){
-                        maxEval=eval;
-                        x=i;
-                        y=j;
-                    }
+    srand(time(NULL));
+
+    int x = INT32_MAX;
+    int y = INT32_MAX;
+
+    int eval, maxEval; //zmienne pomocnice
+    maxEval=-10; //początkowa wartość
+    //W pętli analizuje się każdą możliwa pozycję
+    for(int i=0;i<b.size();i++){
+        for(int j=0;j<b.size();j++){
+            if(b(i,j)==' '){
+                b(i,j)='O';
+                //wykorzystanie algorytmu minimax o ustalonej głębokości
+                //Im większa głębokość, tym większa szansa na optymalne ruchy
+                //Niestety duża głębokość zwiększa czas obliczeń
+                eval=minimax('O',6,-10, 10, b);
+                b(i,j)=' ';
+                //Komputer jest graczem maksymalizowanym, więc:
+                if(eval>maxEval){
+                    maxEval=eval;
+                    x=i;
+                    y=j;
                 }
             }
         }
+    }
 
-        b(x,y)='O';   //ustawienie znaku na planszy
+    if (x == INT32_MAX)
+    {
+        while(x == INT32_MAX)
+        {
+            int i = rand() % b.size();
+            int j = rand() % b.size();
+            if(b(i, j) == ' ')
+            {
+                x = i;
+                y = j;
+            }
+        }
+    }
+
+    cout << b.size() << endl;        
+    cout << x << " " << y << endl;
+    b(x,y)='O';   //ustawienie znaku na planszy
 }

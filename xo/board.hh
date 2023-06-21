@@ -3,7 +3,6 @@
 
 #include<iostream>
 #include<stdlib.h>
-#include<conio.h>
 
 /*
 * Plik zawiera klasę Board, która jest implementacją planszy do gry w kółko i krzyżyk

@@ -15,7 +15,7 @@ void Board::clearBoard(){
 }
 
 void Board::display(){
-    system("CLS");           //czyszczenie ekranu konsoli
+    system("clear");           //czyszczenie ekranu konsoli
     //Wyświetlenie planszy do gry w kółko i krzyżyk w sposób czytelny dla gracza
     for(int i=0;i<s;i++){
         cout<<" "<<i<<"  ";

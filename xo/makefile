@@ -1,6 +1,6 @@
 TRGDIR=./
 OBJ=./obj
-FLAGS=-Wall -pedantic -std=c++1z -iquote inc
+FLAGS=-Wall -pedantic -std=c++1z -iquote inc -g
 __start__:${TRGDIR}/xo
 
 ${TRGDIR}/xo: ${OBJ}/main.o ${OBJ}/board.o ${OBJ}/game.o
